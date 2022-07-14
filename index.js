@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import Note from './model/Note.js';
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -14,6 +13,8 @@ const CONNECTION_URL = "mongodb+srv://visharad:0Bnk5uamhybQQUap@cluster0.p5d50.m
 mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true}, () =>{
     console.log("DB connected");
 });
+
+import Note from './model/Note.js'; 
 
 app.get('/api/getAll', (req, res) => {
     Note.find({}, (err, noteList) => {

@@ -16,13 +16,13 @@ mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: tru
 
 import Note from './model/Note.js'; 
 
-app.get("", async (req, res) => {
-    await res.send("Server is running");
+app.get("", (req, res) => {
+    res.send("Server is running");
 });
 
 // fetching all the notes/data
-app.get('/api/getAll', async (req, res) => {
-    await Note.find({}, (err, noteList) => {
+app.get('/api/getAll', (req, res) => {
+    Note.find({}, (err, noteList) => {
         if(err) console.log(err);
         else{
             res.status(200).send(noteList);
@@ -31,17 +31,17 @@ app.get('/api/getAll', async (req, res) => {
 });
 
 // adding new note
-app.post('/api/addNew', async (req, res) => {
+app.post('/api/addNew', (req, res) => {
     const { title, content } = req.body;
     const noteObj = new Note({
         title : title,
         content : content
     });
-    await noteObj.save( async err => {
+    noteObj.save( err => {
         if(err) console.log(err);
         else console.log("Successfully added");
 
-        await Note.find({}, (err, noteList) => {
+        Note.find({}, (err, noteList) => {
             if(err) console.log(err);
             else{
                 res.status(200).send(noteList);
@@ -51,10 +51,10 @@ app.post('/api/addNew', async (req, res) => {
 });
 
 // deleteing all the nodes
-app.post('/api/delete', async (req, res) => {
+app.post('/api/delete', (req, res) => {
     const { id } = req.body;
-    await Note.deleteOne({_id: id}, async () => {
-        await Note.find({}, (err, noteList) => {
+    Note.deleteOne({_id: id}, () => {
+        Note.find({}, (err, noteList) => {
             if(err) console.log(err);
             else{
                 res.status(200).send(noteList);

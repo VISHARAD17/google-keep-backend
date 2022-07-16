@@ -64,6 +64,7 @@ app.put('/api/update', (req, res) => {
     // console.log("update request!");
     const { id } = req.body;
     console.log(id);
+    
 })
 
 app.listen(PORT, () => {

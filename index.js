@@ -16,6 +16,7 @@ mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: tru
 
 import Note from './model/Note.js'; 
 
+// fetching all the notes/data
 app.get('/api/getAll', (req, res) => {
     Note.find({}, (err, noteList) => {
         if(err) console.log(err);
@@ -25,6 +26,7 @@ app.get('/api/getAll', (req, res) => {
     });
 });
 
+// adding new note
 app.post('/api/addNew', (req, res) => {
     const { title, content } = req.body;
     const noteObj = new Note({
@@ -44,6 +46,7 @@ app.post('/api/addNew', (req, res) => {
     });
 });
 
+// deleteing all the nodes
 app.post('/api/delete', (req, res) => {
     const { id } = req.body;
     Note.deleteOne({_id: id}, () => {
@@ -55,6 +58,13 @@ app.post('/api/delete', (req, res) => {
         }); 
     });
 });
+
+//update function
+app.put('/api/update', (req, res) => {
+    // console.log("update request!");
+    const { id } = req.body;
+    console.log(id);
+})
 
 app.listen(PORT, () => {
     console.log("backend connected at " + PORT)

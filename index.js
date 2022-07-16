@@ -37,11 +37,11 @@ app.post('/api/addNew', async (req, res) => {
         title : title,
         content : content
     });
-    await noteObj.save(err => {
+    await noteObj.save( async err => {
         if(err) console.log(err);
         else console.log("Successfully added");
 
-        Note.find({}, (err, noteList) => {
+        await Note.find({}, (err, noteList) => {
             if(err) console.log(err);
             else{
                 res.status(200).send(noteList);
@@ -53,8 +53,8 @@ app.post('/api/addNew', async (req, res) => {
 // deleteing all the nodes
 app.post('/api/delete', async (req, res) => {
     const { id } = req.body;
-    await Note.deleteOne({_id: id}, () => {
-        Note.find({}, (err, noteList) => {
+    await Note.deleteOne({_id: id}, async () => {
+        await Note.find({}, (err, noteList) => {
             if(err) console.log(err);
             else{
                 res.status(200).send(noteList);

@@ -16,6 +16,10 @@ mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: tru
 
 import Note from './model/Note.js'; 
 
+app.get("", (req, res) => {
+    res.send("Server is running");
+});
+
 // fetching all the notes/data
 app.get('/api/getAll', (req, res) => {
     Note.find({}, (err, noteList) => {
